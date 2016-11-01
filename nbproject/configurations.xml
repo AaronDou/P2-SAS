@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>Parameters.h</itemPath>
+      <itemPath>declaritions.h</itemPath>
+      <itemPath>linked_list.h</itemPath>
+      <itemPath>paillier.h</itemPath>
+      <itemPath>tools.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>Key_Distributor.c</itemPath>
+      <itemPath>PU.c</itemPath>
+      <itemPath>SAS.c</itemPath>
+      <itemPath>SU.c</itemPath>
+      <itemPath>benchmark.c</itemPath>
+      <itemPath>get_Keys.c</itemPath>
+      <itemPath>linked_list.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>my_tools.c</itemPath>
+      <itemPath>paillier.c</itemPath>
+      <itemPath>paillier_io.c</itemPath>
+      <itemPath>paillier_manage_keys.c</itemPath>
+      <itemPath>read_I.c</itemPath>
+      <itemPath>tools.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>gmp</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-lm</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Key_Distributor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PU.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Parameters.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SAS.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="SU.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="benchmark.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="declaritions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="SourceFiles">
+        <cTool>
+          <commandLine>-lm</commandLine>
+        </cTool>
+      </folder>
+      <item path="get_Keys.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="linked_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="linked_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="my_tools.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="paillier_io.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier_manage_keys.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="read_I.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tools.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tools.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="Key_Distributor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PU.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Parameters.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SAS.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="SU.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="benchmark.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="declaritions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="get_Keys.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="linked_list.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="linked_list.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="my_tools.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="paillier_io.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="paillier_manage_keys.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="read_I.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tools.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tools.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

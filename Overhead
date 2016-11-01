@@ -1,0 +1,15 @@
+2048
+One encryption takes  11800.000000 microseconds
+One addition takes  10.000000 microseconds
+One scale 20 bit takes  200.000015 microseconds
+One scale 120 bit takes  730.000000 microseconds
+One substraction takes  60.000000 microseconds
+One decryption takes  6710.000000 microseconds
+
+1024
+One encryption takes  2009.999878 microseconds
+One addition takes  0.000000 microseconds
+One scale 20 bit takes  60.000000 microseconds
+One scale 120 bit takes  210.000000 microseconds
+One substraction takes  30.000000 microseconds
+One decryption takes  940.000000 microseconds

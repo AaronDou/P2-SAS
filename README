@@ -1,0 +1,3 @@
+main.c: Main function file
+priv2048: Private key file of 2048-bit Paillier cryptosystem
+pub2048: public key file of 2048-bit Paillier cryptosystem

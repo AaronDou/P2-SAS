@@ -1,0 +1,39 @@
+PU profile generation takes 74.269997 seconds
+SU profile: 0 0 100000000
+SU request generation takes 37.110001 seconds
+52312098
+SAS initialization takes 89.449997 seconds
+SAS interference calculation (raw) takes 2585.540039 seconds
+SAS interference calculation (improved) takes 2147.219971 seconds
+SAS interference calculation (rest) takes 79.360001 seconds
+Key conversion takes 116.099998 seconds
+SAS license response takes 0.540000 seconds
+0
+
+1
+SU decryption takes 0.010000 seconds
+SU generate U takes 73.980003 seconds
+SAS update N takes 0.360000 seconds
+
+RUN FINISHED; exit value 0; real time: 1h 27m 0s; user: 11s; system: 1h 26m 32s
+
+
+PU profile generation takes 75.519997 seconds
+SU profile: 0 0 100000000
+SU request generation takes 37.540001 seconds
+52312098
+12672
+SAS initialization takes 76.989998 seconds
+SAS response takes 4394.250000 seconds
+Key distributor response takes 231.000000 seconds
+SAS License response takes 1.320000 seconds
+SU decryption takes 0.000000 seconds
+9a3b369fdcc4bdbb3d38d830f4658640d0664e05231174a9deab2aa566dd8ead5ae0106b54d9a1af76717023c15b452f278fe65e82e5b8061cf2b821d9798e6d1afae90f2dfeedeb7b4c1b33abacd4b87f99f167eda8577577e9a0b675124b8f63ed8535023915ed091829451a160c10b80dcb61d8c285decb6023d33a6a741a730c63f579e76e53de7b5c8168a86c1bc4be1edf4ca0a6e9222491c6657f994eff96c24013abf4da8742be02f6c927fe9a0c42b46c4b5eeb415ee13c86e2c449ec7553e00b1b9a03bf1e9215f273040a7fba6565b547b37a20bb2e7acddb70317a48c51a3e4fd736ce59281643ad933a0c38f58011312f45bf2fdc58d77583ce
+
+0
+SU generate U takes 147.479996 seconds
+SAS update N takes 0.620000 seconds
+
+RUN FINISHED; exit value 0; real time: 13m 41s; user: 14s; system: 1h 22m 30s
+
+
