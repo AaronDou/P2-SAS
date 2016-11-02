@@ -52,70 +52,36 @@ mpz_t * aggregation(paillier_public_key *pub){ // may extract the PU computation
 
 
 
-//int initialize_N(mpz_t *N_en, paillier_public_key *pub){
-//    
-//    int i, hi;
-//    mpz_t *N = (mpz_t *)malloc(L*H*sizeof(mpz_t));
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H; hi++){            
-//            mpz_init_set(*(N + i*H_I + hi), EXTREMELY_LARGE_NUMBER);
-//            mpz_init(*(N_en + i*H_I + hi));
-//            paillier_encrypt(*(N_en + i*H + hi), *(N + i*H + hi), pub);
-//        }
-//    }
-//}
-//
-//int update_PU(mpz_t *N_out, mpz_t *N_in, const mpz_t *M, paillier_public_key *pub){
-//    
-//    mpz_t large_number;
-//    mpz_init(large_number);
-//    
-//    paillier_encrypt(large_number, EXTREMELY_LARGE_NUMBER, pub);
-//    int i,hi;
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H; hi++){
-//            paillier_homomorphic_add(*(N_out + i*H + hi), *(N_in + i*H + hi), *(M + i*H + hi), pub);
-//            paillier_homomorphic_sub(*(N_out + i*H + hi), *(N_out + i*H + hi), large_number, pub);
-//        }
-//    }    
-//    return 0;
-//}
-//
-//int cal_Interference_Budget(mpz_t *G, const mpz_t *N, const mpz_t *I, const mpz_t *R, paillier_public_key *pub){
-//    
-//    int i,hi,j,hs;
-//    mpz_t temp;
-//    mpz_init(temp);
-//    mpz_t sum, zero;
-//    mpz_init(sum);
-//    mpz_init_set_si(zero, 0);
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H; hi++){            
-//            mpz_init(*(G + i*H_I + hi));   
-//            paillier_encrypt(sum, zero, pub);
-//            for(j = 0; j < L; j++){
-//                for(hs = 0; hs < H; hs++){
-//                        paillier_homomorphic_multc(temp, *(R + j*H + hs), *(I+offset(i, hi, j, hs)), pub);   
-//                        paillier_homomorphic_add(sum, sum, temp, pub);                             
-//                }
-//            }
-//            paillier_homomorphic_sub(*(G + i*H + hi), *(N + i*H + hi), sum, pub);         
-////            mpz_t de;
-////            mpz_init(de);
-////            FILE *private_key = fopen("./priv2048", "r");
-////            paillier_private_key priv;
-////            paillier_private_init(&priv);
-////            paillier_private_in_str(&priv, private_key);
-////            fclose(private_key);
-////            paillier_decrypt(de, G[i][hi], &priv);
-////            gmp_printf("%Zx\n", de);
-////            paillier_decrypt(de, N[i][hi], &priv);
-////            gmp_printf("%Zx\n", de);
-//        }
-//    }  
-//    return 0;
-//}
-//
+mpz_t * cal_Interference_Budget(const mpz_t *N_enc, const mpz_t *I, const mpz_t *R_enc, paillier_public_key *pub){
+    
+    int l_s, h_s, f_s, l_i, h_i, f_i;
+    mpz_t *G_enc = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));
+    
+    mpz_t temp;
+    mpz_init(temp);
+    mpz_t sum;
+    mpz_init(sum);
+    
+    for(l_i = 0; l_i < L; l_i++){               
+        for(h_i = 0; h_i < H; h_i++){
+            for(f_i = 0; f_i < F; f_i++){  
+                mpz_init(*(G_enc+offset(l_i,h_i,f_i)));
+                paillier_encrypt(sum, ZERO, pub);
+                for(l_s = 0; l_s < L; l_s++){               
+                    for(h_s = 0; h_s < H; h_s++){
+                        for(f_s = 0; f_s < F; f_s++){    
+                            paillier_homomorphic_multc(temp, *(R_enc+offset(l_s,h_s,f_s)), *(I+ l_i*L*H*H*F*F + h_i*L*H*F*F+ f_i*L*H*F + l_s*H*F +h_s*F + f_s), pub);   
+                            paillier_homomorphic_add(sum, sum, temp, pub);   
+                        }   
+                    }
+                }
+                paillier_homomorphic_sub(*(G_enc+offset(l_i,h_i,f_i)), *(N_enc+offset(l_i,h_i,f_i)), sum, pub);  
+            }
+        }
+    }    
+    return G_enc;
+}
+
 //int cal_Interference_Budget_optimised_linkedlist(mpz_t *G, const mpz_t *N, const struct Node ** I_optimized, const mpz_t *R, paillier_public_key *pub){
 //    
 //    int i,hi,j,hs;
@@ -286,43 +252,57 @@ mpz_t * aggregation(paillier_public_key *pub){ // may extract the PU computation
 ////    }            
 //    return 0;
 //}
-//
-//
-//
-//
-//int obfuscate_Sign(mpz_t *X, mpz_t *gamma, const mpz_t *G, paillier_public_key *pub){
+
+
+mpz_t * get_epsilon(){
+    srand(time(NULL));
+    mpz_t * epsilon= (mpz_t *)malloc(L*H*F*sizeof(mpz_t)); 
+    int l, h, f;
+    for(l = 0; l < L; l++){               
+        for(h = 0; h < H; h++){
+            for(f = 0; f < F; f++){        
+                mpz_init_set_ui(*(epsilon + offset(l,h,f)), rand()%2*2-1);
+            }
+        }
+    }
+    return epsilon;
+}
+
+//mpz_t * obfuscate(mpz_t *gamma, const mpz_t *G, paillier_public_key *pub){
+//    mpz_t *X_enc = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));    
+// 
 //    
-////    int i, hi;
-////    mpz_t alpha, beta, beta_en;
-////    mpz_init(alpha);
-////    mpz_init(beta);
-////    mpz_init(beta_en);
-////    int a;
-////    
-////    for(i = 0; i < L; i++){
-////        for(hi = 0; hi < H_I; hi++){                        
-////            mpz_init(*(X + i*H_I + hi));
-////            mpz_init(*(gamma + i*H_I + hi));
-////     
-////            while(mpz_cmp(alpha, beta) <= 0){
-////                gen_pseudorandom(alpha, RAND_LENGTH);        
-////                gen_pseudorandom(beta, RAND_LENGTH);
-////            }
-////
-////            paillier_encrypt(beta_en, beta, pub);
-////
-////            a = rand()%2*2-1;    
-////            mpz_set_si(*(gamma + i*H_I + hi), a);
-////
-////            paillier_homomorphic_multc(*(X + i*H_I + hi), *(G + i*H_I + hi), alpha, pub);
-////            paillier_homomorphic_sub(*(X + i*H_I + hi), *(X + i*H_I + hi), beta_en, pub);
-////            paillier_homomorphic_multc(*(X + i*H_I + hi), *(X + i*H_I + hi), *(gamma + i*H_I + hi), pub);
-////        }
-////    }
+//    int i, hi;
+//    mpz_t alpha, beta, beta_en;
+//    mpz_init(alpha);
+//    mpz_init(beta);
+//    mpz_init(beta_en);
+//    int a;
 //    
-//    return 0;
+//    for(i = 0; i < L; i++){
+//        for(hi = 0; hi < H_I; hi++){                        
+//            mpz_init(*(X + i*H_I + hi));
+//            mpz_init(*(gamma + i*H_I + hi));
+//     
+//            while(mpz_cmp(alpha, beta) <= 0){
+//                gen_pseudorandom(alpha, RAND_LENGTH);        
+//                gen_pseudorandom(beta, RAND_LENGTH);
+//            }
+//
+//            paillier_encrypt(beta_en, beta, pub);
+//
+//            a = rand()%2*2-1;    
+//            mpz_set_si(*(gamma + i*H_I + hi), a);
+//
+//            paillier_homomorphic_multc(*(X + i*H_I + hi), *(G + i*H_I + hi), alpha, pub);
+//            paillier_homomorphic_sub(*(X + i*H_I + hi), *(X + i*H_I + hi), beta_en, pub);
+//            paillier_homomorphic_multc(*(X + i*H_I + hi), *(X + i*H_I + hi), *(gamma + i*H_I + hi), pub);
+//        }
+//    }
+//    
+//    return X_enc;
 //}
-//
+
 //int calc_Q(mpz_t Q, const mpz_t *gamma, const mpz_t *Y, paillier_public_key *pub){
 //    
 ////    mpz_init(Q);

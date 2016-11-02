@@ -37,98 +37,114 @@ int main(){
     mpz_t *N_enc;
     N_enc=aggregation(&pub);
     
-//    struct Pos_Value* pv=PU_data_generation_coordination();
-//    mpz_t *T_i_encrypted;
-//    T_i_encrypted=PU_i_update(pv, &pub);
-//    print_mpz_array(T_i_encrypted);
-    
-//    int i;
-//    for( i=0; i<PU_NUM; i++ )
-//        printf("%i\n",(*(pv+i)).pos);
-//    mpz_t test;
-//    mpz_init(test);
-//    mpz_set_ui(test,2);
-//    int a=mpz_tstbit(test,0);
-//    printf("%d\n",a);
-//    mpz_setbit (test, 280);
-//    gmp_printf("%Zx",test);
-    //print_mpz_array(T_encrypted);
-    
-//    for (int pu_i = 0; pu_i < PU_NUM; pu_i++){
-//        
+    //testing
+//    int l, h, f;
+//    mpz_t temp;
+//    mpz_init(temp);
+//    
+//    FILE *private_key = fopen("./priv2048", "r");
+//    paillier_private_key priv;
+//    paillier_private_init(&priv);
+//    paillier_private_in_str(&priv, private_key);
+//    fclose(private_key);
+//    
+//    for(l = 0; l < L; l++){               
+//        for(h = 0; h < H; h++){
+//            for(f = 0; f < F; f++){                   
+//                paillier_decrypt(temp, *(N_enc + offset(l,h,f)), &priv);           
+//                gmp_printf("%Zd\n", temp);
+//            }
+//        }
 //    }
-//    Ti = PU_updates(&pub);
-//    PU(T_encrypted, &pub); // Generate PU input data T
     
     
-    
-    
-    
-    
-    
-    
-    
+
     /**************************************************/ 
     //                     SU                          //
     /**************************************************/ 
-//    tic = clock();
-//    mpz_t *R_en = (mpz_t *)malloc(L*H_S*sizeof(mpz_t));
-//    gen_req(R_en, &pub);
-//    toc = clock();
-//    printf ("SU request generation takes %f seconds\n", (float)(toc-tic)/CLOCKS_PER_SEC);
+    mpz_t * R_enc;
+    R_enc=gen_req(&pub);
+    
+    //testing
+//    int l, h, f;
+//    mpz_t temp;
+//    mpz_init(temp);
 //    
+//    FILE *private_key = fopen("./priv2048", "r");
+//    paillier_private_key priv;
+//    paillier_private_init(&priv);
+//    paillier_private_in_str(&priv, private_key);
+//    fclose(private_key);
 //    
-//    
-//    /**************************************************/ 
-//    //                     SAS                         //
-//    /**************************************************/ 
-//    
-//    
-//    // *************Initialization***********************//
-//    tic = clock();
-//    mpz_t *N_en = (mpz_t *)malloc(L*H_I*sizeof(mpz_t));
-//    initialize_N(N_en, &pub);
-//    update_PU(N_en, N_en, T_encrypted, &pub);
-//    int i,j;
-//    
-//
-//    mpz_t *I = (mpz_t *)malloc(L*H_I*L*H_S*sizeof(mpz_t));   
+//    for(l = 0; l < L; l++){               
+//        for(h = 0; h < H; h++){
+//            for(f = 0; f < F; f++){                   
+//                paillier_decrypt(temp, *(R_enc + offset(l,h,f)), &priv);           
+//                gmp_printf("%Zd\n", temp);
+//            }
+//        }
+//    }
+    
+    
+    /**************************************************/ 
+    //                     SAS                         //
+    /**************************************************/ 
+    
+    
+    // ************* Preparing I ***********************//
+
+    mpz_t *I = get_I();
+    
 //    FILE *fp1;
 //    fp1 = fopen("I_MAP_100", "r");
 ////    fp = fopen("I_MAP_10000", "r");
 //    read_I(I, fp1);
 //    fclose(fp1);
-// 
-////    mpz_t *Value = (mpz_t *) malloc(L * H_I * MAX_LENGTH_I_MAP_ROW *sizeof (mpz_t));
-////    int *Idx = (int *)malloc(L * H_I * MAX_LENGTH_I_MAP_ROW * MAX_LENGTH_I_MAP_COL * sizeof(int));
-////    optimize_I_array(Value, Idx, I);      
-////    mpz_t *G_en = (mpz_t *) malloc(L * H_I * sizeof (mpz_t));
-////    cal_Interference_Budget_optimised_array(G_en, N_en, Value, Idx, R_en, &pub);
-////    // LinkedList -- abandoned
-//////    struct Node ** I_optimized = (struct Node**) malloc(L * H_I * sizeof (struct Node*));
-//////    optimize_I_linkedlist(I_optimized, I);    
-//    
-//
+ 
+//    mpz_t *Value = (mpz_t *) malloc(L * H_I * MAX_LENGTH_I_MAP_ROW *sizeof (mpz_t));
+//    int *Idx = (int *)malloc(L * H_I * MAX_LENGTH_I_MAP_ROW * MAX_LENGTH_I_MAP_COL * sizeof(int));
+//    optimize_I_array(Value, Idx, I);      
+//    mpz_t *G_en = (mpz_t *) malloc(L * H_I * sizeof (mpz_t));
+//    cal_Interference_Budget_optimised_array(G_en, N_en, Value, Idx, R_en, &pub);
+//    // LinkedList -- abandoned
+////    struct Node ** I_optimized = (struct Node**) malloc(L * H_I * sizeof (struct Node*));
+////    optimize_I_linkedlist(I_optimized, I);    
+    
+
 //    int *I_line = (int *)malloc(I_Line_length*sizeof(int));
 //    FILE *fp;
 //    fp = fopen("myfile.txt", "r");
 //    read_I_line(I_line,fp);
 //    fclose(fp);
+      
+    
+    // *************Response***********************//
+    mpz_t *G_enc;
+    G_enc = cal_Interference_Budget(N_enc, I, R_enc, &pub);
+    //testing
+//    int l, h, f;
+//    mpz_t temp;
+//    mpz_init(temp);
 //    
-//    toc = clock();
-//    printf ("SAS initialization takes %f seconds\n", (float)(toc-tic)/CLOCKS_PER_SEC);
-//    
-//    
-//    
-//    
-//    // *************Response***********************//
-//    mpz_t *G_en1 = (mpz_t *) malloc(L * H_I * sizeof (mpz_t));
-//    tic = clock();
-//    cal_Interference_Budget(G_en1, N_en, I, R_en, &pub);
-//    toc = clock();
-//    printf ("SAS interference calculation (raw) takes %f seconds\n", (float)(toc-tic)/CLOCKS_PER_SEC);
-//    
-//
+//    FILE *private_key = fopen("./priv2048", "r");
+//    paillier_private_key priv;
+//    paillier_private_init(&priv);
+//    paillier_private_in_str(&priv, private_key);
+//    fclose(private_key);
+    
+//    for(l = 0; l < L; l++){               
+//        for(h = 0; h < H; h++){
+//            for(f = 0; f < F; f++){                   
+//                paillier_decrypt(temp, *(G_enc + offset(l,h,f)), &priv);           
+//                gmp_printf("%Zd\n", temp);
+//            }
+//        }
+//    }
+    
+    
+    
+    
+
 //    mpz_t *F_en = (mpz_t *) malloc(L * H_I * sizeof (mpz_t));    
 //    mpz_t *G_en = (mpz_t *) malloc(L * H_I * sizeof (mpz_t));       
 //    tic = clock();
@@ -136,16 +152,32 @@ int main(){
 //    generate_G(G_en, N_en, F_en, &pub);
 //    toc = clock();
 //    printf ("SAS interference calculation (improved) takes %f seconds\n", (float)(toc-tic)/CLOCKS_PER_SEC);
-//    
-//    tic = clock();
-//    mpz_t *X_en = (mpz_t *)malloc(L*H_I*sizeof(mpz_t));    
-//    mpz_t *gamma = (mpz_t *)malloc(L*H_I*sizeof(mpz_t));     
-//    obfuscate_Sign(X_en, gamma, G_en, &pub);  
-//    toc = clock();
+
+    
+    
+    // ************* Obfuscation ***********************//
+    mpz_t * epsilon=get_epsilon();
+    
+    //testing
+    int l, h, f;
+    for(l = 0; l < L; l++){               
+        for(h = 0; h < H; h++){
+             for(f = 0; f < F; f++){                   
+                gmp_printf("%Zd\n", *(epsilon + offset(l,h,f)));
+            }
+        }
+    }
+    
+//    obfuscate(X_en, gamma, G_en, &pub);  
 //    printf ("SAS interference calculation (rest) takes %f seconds\n", (float)(toc-tic)/CLOCKS_PER_SEC);
-//    /**************************************************/ 
-//    //                 Key_converter                  //
-//    /**************************************************/ 
+    
+ 
+    
+    
+      
+    /**************************************************/ 
+    //                 Key_converter                  //
+    /**************************************************/ 
 //   
 //    FILE *su_public_key, *su_private_key;
 //    paillier_public_key su_pub;

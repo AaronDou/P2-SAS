@@ -9,29 +9,47 @@
 #include "Parameters.h"
 #include "paillier.h"
 
-//int gen_req(mpz_t *R_en, paillier_public_key *pub){
-//    
-//    int i, hs;
+mpz_t * gen_req(paillier_public_key *pub){
+    
+    int h, l, f;
+    srand(time(NULL));
+    
+    mpz_t *R = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));   
+    mpz_t *R_enc = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));    
+    initialize_mpz_array(R, 0);  
+    initialize_mpz_array(R_enc, 0);  
+      
+    int pos = get_pos();
+    int tx_power = get_tx_power();
+    printf("SU profile: %d %d\n", pos, tx_power);
+    
+    mpz_set_ui(*(R + pos), tx_power); 
+    
+    for(l = 0; l < L; l++){               
+        for(h = 0; h < H; h++){
+            for(f = 0; f < F; f++){        
+                paillier_encrypt(*(R_enc + offset(l,h,f)), *(R + offset(l,h,f)), pub);
+                mpz_clear(*(R + offset(l,h,f)));
+            }
+        }
+    }
+    return R_enc;
+}
+
+int get_pos(){
 //    srand(time(NULL));
-//    mpz_t *R = (mpz_t *)malloc(L*H_S*sizeof(mpz_t));    
-//    for(i = 0; i < L; i++){
-//        for(hs = 0; hs < H_S; hs++){            
-//            mpz_init_set_ui(*(R + i*H_S + hs), 0); 
-//            mpz_init(*(R_en + i*H_S + hs));             
-//        }
-//    }
-////    int pos = rand()%(L*H_S);
-////    int tx_power = rand()%1000;     // unit: mWatt
-//    int pos = 0;
-//    int tx_power = 100000000;
-//    printf("SU profile: %d %d %d\n", pos/H_S, pos%H_S, tx_power);
-//    mpz_set_ui(*(R + pos), tx_power);    
-//    for(i = 0; i < L; i++){
-//        for(hs = 0; hs < H_S; hs++){  
-//                paillier_encrypt(*(R_en + i*H_S + hs), *(R + i*H_S + hs), pub);           
-//        }
-//    }
-//}
+//    int pos = rand()%(L*H*F);
+//    return pos;
+    return 0;
+}
+
+int get_tx_power(){
+//    srand(time(NULL));  
+//    int tx_power = rand()%1000;     // unit: mWatt
+//    return tx_power;
+    return 100000000;
+}
+
 //int generate_U(mpz_t *U, int available, mpz_t *F_en, paillier_public_key *pub){
 //    int i,hi;
 //    for(i = 0; i < L; i++){

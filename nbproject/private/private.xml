@@ -9,8 +9,11 @@
         <group>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/my_tools.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/PU.c</file>
+            <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/paillier.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/SAS.c</file>
+            <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/tools.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/main.c</file>
+            <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/benchmark.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/Key_Distributor.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/read_I.c</file>
             <file>file:/home/yanzhi/NetBeansProjects/SecureCRN/SU.c</file>

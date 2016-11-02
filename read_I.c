@@ -14,6 +14,30 @@
 #include <math.h>
 #include "linked_list.h"
 
+mpz_t * get_I(){ //Random generation for testing
+    srand(time(NULL));
+    long MIN_ATTENUATION= 1000;
+    long MAX_ATTENUATION= 100000000;
+    mpz_t *I = (mpz_t *)malloc(L*L*H*H*F*F*sizeof(mpz_t));
+    int l_s, h_s, f_s, l_i, h_i, f_i;
+    for(l_i = 0; l_i < L; l_i++){               
+        for(h_i = 0; h_i < H; h_i++){
+            for(f_i = 0; f_i < F; f_i++){        
+                for(l_s = 0; l_s < L; l_s++){               
+                    for(h_s = 0; h_s < H; h_s++){
+                        for(f_s = 0; f_s < F; f_s++){    
+                            long random = 100000;
+//                            long random = rand()%(MAX_ATTENUATION-MIN_ATTENUATION)+MIN_ATTENUATION;
+                            mpz_init_set_ui(*(I+ l_i*L*H*H*F*F + h_i*L*H*F*F+ f_i*L*H*F + l_s*H*F +h_s*F + f_s), random);
+                        }   
+                    }
+                }
+            }
+        }
+    }    
+    return I;
+}
+
 //int read_I(mpz_t *I, FILE *fp){
 //    int i,hi,j,hs;
 //    for(i = 0; i < L; i++){
