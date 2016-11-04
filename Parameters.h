@@ -5,6 +5,7 @@
  * Created on December 7, 2014, 5:45 PM
  */
 #include "paillier.h"
+
 #ifndef PARAMETERS_H
 #define	PARAMETERS_H
 
@@ -28,7 +29,7 @@ extern "C" {
 #define H 2 // antenna height levels
 #define F 2 // number of frequency channels
 #define PU_NUM 2 // number of PUs
-
+#define SU_NUM 10
 
 #define K 60
 #define PSI 220
@@ -42,7 +43,9 @@ extern "C" {
 mpz_t TEN;
 mpz_t ONE;
 mpz_t ZERO;
+mpz_t Z;
 
- 
+
+
 
 #include <gmp.h>

@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>Parameters.h</itemPath>
       <itemPath>declaritions.h</itemPath>
-      <itemPath>linked_list.h</itemPath>
       <itemPath>paillier.h</itemPath>
       <itemPath>tools.h</itemPath>
     </logicalFolder>
@@ -20,10 +19,10 @@
       <itemPath>Key_Distributor.c</itemPath>
       <itemPath>PU.c</itemPath>
       <itemPath>SAS.c</itemPath>
+      <itemPath>SAS_processing.c</itemPath>
       <itemPath>SU.c</itemPath>
       <itemPath>benchmark.c</itemPath>
       <itemPath>get_Keys.c</itemPath>
-      <itemPath>linked_list.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>my_tools.c</itemPath>
       <itemPath>paillier.c</itemPath>
@@ -68,6 +67,8 @@
       </item>
       <item path="SAS.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="SAS_processing.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="SU.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="benchmark.c" ex="false" tool="0" flavor2="0">
@@ -80,10 +81,6 @@
         </cTool>
       </folder>
       <item path="get_Keys.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="linked_list.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="linked_list.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -132,6 +129,8 @@
       </item>
       <item path="SAS.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="SAS_processing.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="SU.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="benchmark.c" ex="false" tool="0" flavor2="0">
@@ -139,10 +138,6 @@
       <item path="declaritions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="get_Keys.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="linked_list.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="linked_list.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

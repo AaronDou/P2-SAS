@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include "Parameters.h"
 #include "paillier.h"
+#include <stdbool.h>
 
 mpz_t * gen_req(paillier_public_key *pub){
     
@@ -21,7 +22,7 @@ mpz_t * gen_req(paillier_public_key *pub){
       
     int pos = get_pos();
     int tx_power = get_tx_power();
-    printf("SU profile: %d %d\n", pos, tx_power);
+    printf("\nSU operation position: %d, transmit power: %d\n", pos, tx_power);
     
     mpz_set_ui(*(R + pos), tx_power); 
     
@@ -47,28 +48,33 @@ int get_tx_power(){
 //    srand(time(NULL));  
 //    int tx_power = rand()%1000;     // unit: mWatt
 //    return tx_power;
-    return 100000000;
+    return 1000;
 }
 
-//int generate_U(mpz_t *U, int available, mpz_t *F_en, paillier_public_key *pub){
-//    int i,hi;
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H_I; hi++){ 
-//            mpz_init(*(U + i*H_I + hi)); 
-//            paillier_encrypt(*(U + i*H_I + hi), ZERO, pub);   
-//            paillier_homomorphic_add(*(U + i*H_I + hi), *(U + i*H_I + hi), *(F_en + i*H_I + hi), pub); // to calculate time cost
-//        }
-//    }      
-//    
-////    if (available == 0){
-////        return 0;
-////    }
-////    else{
-////        for(i = 0; i < L; i++){
-////            for(hi = 0; hi < H_I; hi++){ 
-////                paillier_homomorphic_add(*(U + i*H_I + hi), *(U + i*H_I + hi), *(F_en + i*H_I + hi), pub);
-////            }
-////        }  
-////    }
-//          
-//}
+mpz_t * generate_U(bool availability, mpz_t *F_enc, paillier_public_key *pub){
+    mpz_t *U_enc = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));
+    
+    int h, l, f;
+    if (availability == true){
+        for(l = 0; l < L; l++){               
+            for(h = 0; h < H; h++){
+                for(f = 0; f < F; f++){
+                    mpz_init(*(U_enc+offset(l,h,f)));
+                    paillier_encrypt(*(U_enc+offset(l,h,f)), ZERO, pub);
+                    paillier_homomorphic_add(*(U_enc+offset(l,h,f)), *(U_enc+offset(l,h,f)), *(F_enc+offset(l,h,f)), pub); // to calculate time cost
+                }
+            }
+        }
+    }
+    else{
+        for(l = 0; l < L; l++){               
+            for(h = 0; h < H; h++){
+                for(f = 0; f < F; f++){
+                    mpz_init(*(U_enc+offset(l,h,f)));
+                    paillier_encrypt(*(U_enc+offset(l,h,f)), ZERO, pub);
+                }
+            }
+        }
+    }
+    return U_enc;
+}

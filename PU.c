@@ -4,9 +4,6 @@
 #include <time.h>
 #include "declaritions.h"
 
-
-
-
 mpz_t * PU_i_update(struct Pos_Value *pv, paillier_public_key *pub){
   
     int l, h, f;
@@ -16,15 +13,14 @@ mpz_t * PU_i_update(struct Pos_Value *pv, paillier_public_key *pub){
         for(h = 0; h < H; h++){
             for(f = 0; f < F; f++){               
                 if (offset(l,h,f)==pv->pos){
-                    mpz_t temp, W, V, WplusZ, Z; 
-                    mpz_inits(temp, W, V, WplusZ, Z, NULL);
+                    mpz_t temp, W, V, WplusZ; 
+                    mpz_inits(temp, W, V, WplusZ, NULL);
                     
                     mpz_setbit (temp, PSI+K); //set 60+220=280th bit to the right as 1
                     mpz_set_ui(V, pv->value);
                     mpz_add(WplusZ, temp, V);
 //                    gmp_printf("%Zd\n%Zd\n%Zd",V,temp,WplusZ);
-                    mpz_setbit(Z,K-1);
-                    mpz_sub_ui(Z,Z,1);
+
                     mpz_sub(W,WplusZ,Z);
                     mpz_init_set(*(T_i+offset(l,h,f)), W);
 //                    gmp_printf("%Zd\n%Zd\n%Zd",WplusZ,Z,W);
@@ -49,11 +45,16 @@ struct Pos_Value* PU_data_generation_coordination(){//randomized data
     srand(time(NULL));
     
     int *value=generate_random_array_no_reps(F*H*L, 0, PU_NUM);     
+    
+//    int *value=(int *)malloc(2*sizeof(int));
+//    *(value)=0;
+//    *(value+1)=4;
+    
     int pu_i;
     for( pu_i=0; pu_i<PU_NUM; pu_i++ ){
-        (*(pv + pu_i)).pos = *(value+pu_i);
-//        printf("%d\n",*(value+pu_i));
+        (*(pv + pu_i)).pos = *(value+pu_i);        
         (*(pv + pu_i)).value = rand()%(MAX_SENSITIVITY-MIN_SENSITIVITY)+MIN_SENSITIVITY;
+        printf("PU operation position: %d, inference sensitivity threshold: %ld\n",(*(pv + pu_i)).pos,  (*(pv + pu_i)).value);
     }
     return pv;
 }

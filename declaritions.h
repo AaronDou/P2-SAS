@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-
+#include <stdbool.h>
 
 
 #ifdef	__cplusplus
@@ -25,3 +25,5 @@ struct Pos_Value{
     int pos;
     long value;
 };
+
+static bool debug = false;

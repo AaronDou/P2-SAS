@@ -2,16 +2,6 @@
 #include <time.h>
 #include "Parameters.h"
 
-int generate_ran(int percent){
-    
-    int r = rand()%100;
-    if(r <= percent){
-        return 1;
-    }
-    else
-        return 0;
-    
-}
 
 int offset( int l, int h, int f) { return l*H*F + h*F + f;}
 

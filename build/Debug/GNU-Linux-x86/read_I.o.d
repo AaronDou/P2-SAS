@@ -1,8 +1,8 @@
-build/Debug/GNU-Linux-x86/read_I.o: read_I.c Parameters.h paillier.h \
- linked_list.h
+build/Debug/GNU-Linux-x86/read_I.o: read_I.c declaritions.h Parameters.h \
+ paillier.h
+
+declaritions.h:
 
 Parameters.h:
 
 paillier.h:
-
-linked_list.h:

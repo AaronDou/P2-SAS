@@ -15,7 +15,7 @@
 #include "Parameters.h"
 #include <time.h>
 #include "tools.h"
-#include "linked_list.h"
+
 int benchmark(){
 
     // initialization

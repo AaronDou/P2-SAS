@@ -9,30 +9,27 @@
 #include "Parameters.h"
 #include "paillier.h"
 
-//int Key_conversion(mpz_t *Y_en_su, const mpz_t *X, paillier_private_key *priv, paillier_public_key *pub){    
-//    
-//    int i,hi;
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H; hi++){                        
-//            mpz_init(*(Y_en_su + i*H + hi));           
-//        }
-//    }
-//    
-//    mpz_t temp, flag;
-//    mpz_init(temp);
-//    mpz_init(flag);
-//    for(i = 0; i < L; i++){
-//        for(hi = 0; hi < H; hi++){
-//            paillier_decrypt(temp, *(X + i*H + hi), priv);            
-//            size_t sz = mpz_sizeinbase (temp, 10);
-//            if(sz <= DIFF_POS_NEG){
-//                mpz_set_si(flag,1);
-//            }
-//            else{
-//                mpz_set_si(flag,-1);
-//            }
-//            paillier_encrypt(*(Y_en_su + i*H + hi), flag, pub);
-//        }
-//    }
-//    return 0;
-//}
+mpz_t * Key_conversion(const mpz_t *X_enc, paillier_private_key *priv, paillier_public_key *su_pub){
+    
+    mpz_t *Y_enc_su = (mpz_t *)malloc(L*H*F*sizeof(mpz_t));      
+    mpz_t temp, ONE;
+    mpz_inits(temp, ONE, NULL);
+    mpz_set_ui(ONE, 1);
+    
+    int l, h, f;
+    for(l = 0; l < L; l++){
+        for(h = 0; h < H; h++){
+            for(f = 0; f < F; f++){
+                mpz_init(*(Y_enc_su + offset(l,h,f)));
+                paillier_decrypt(temp, *(X_enc + offset(l,h,f)), priv);
+                if (mpz_tstbit(temp, PSI+K-1)){ // negative
+                    paillier_encrypt(*(Y_enc_su + offset(l,h,f)), ZERO, su_pub);
+                }
+                else{
+                    paillier_encrypt(*(Y_enc_su + offset(l,h,f)), ONE, su_pub);
+                }              
+            }
+        }
+    }
+    return Y_enc_su;
+}

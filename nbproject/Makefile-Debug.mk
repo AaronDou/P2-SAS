@@ -38,10 +38,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/Key_Distributor.o \
 	${OBJECTDIR}/PU.o \
 	${OBJECTDIR}/SAS.o \
+	${OBJECTDIR}/SAS_processing.o \
 	${OBJECTDIR}/SU.o \
 	${OBJECTDIR}/benchmark.o \
 	${OBJECTDIR}/get_Keys.o \
-	${OBJECTDIR}/linked_list.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/my_tools.o \
 	${OBJECTDIR}/paillier.o \
@@ -90,6 +90,11 @@ ${OBJECTDIR}/SAS.o: SAS.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -lm -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SAS.o SAS.c
 
+${OBJECTDIR}/SAS_processing.o: SAS_processing.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -lm -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SAS_processing.o SAS_processing.c
+
 ${OBJECTDIR}/SU.o: SU.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -104,11 +109,6 @@ ${OBJECTDIR}/get_Keys.o: get_Keys.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -lm -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/get_Keys.o get_Keys.c
-
-${OBJECTDIR}/linked_list.o: linked_list.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -lm -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/linked_list.o linked_list.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
